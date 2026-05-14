@@ -4,8 +4,8 @@ A simple, polished admin dashboard for reviewing Costa Rica rental properties an
 
 ## Live Links
 
-- Live demo URL: _Add Vercel deployment URL here_
-- GitHub repository: _Add GitHub repository URL here_
+- Live demo URL: home-rental-admin-dashboard-g9c1.vercel.app
+- GitHub repository: (https://github.com/Kevinrd11/HomeRentalAdminDashboard)
 
 ## Tech Stack
 
@@ -13,7 +13,7 @@ A simple, polished admin dashboard for reviewing Costa Rica rental properties an
 - React
 - TypeScript
 - Plain CSS with responsive, component-oriented classes
-- OpenWeatherMap current weather API with mock fallback
+- OpenWeatherMap current weather API 
 - Browser `localStorage` for demo authentication and Google Identity Services sign-in state
 
 ## Features Completed
@@ -26,7 +26,6 @@ A simple, polished admin dashboard for reviewing Costa Rica rental properties an
 - Property detail page with image, address, description, pricing, capacity, and status metadata.
 - Reusable weather service that fetches by latitude and longitude.
 - Weather loading and error states.
-- Mock weather fallback when no OpenWeatherMap API key is configured.
 - Deployment-ready environment variable example.
 
 ## Demo Login Credentials
@@ -36,53 +35,12 @@ Email: admin@homerentals.com
 Password: Admin123!
 ```
 
-## How to Run Locally
-
-1. Install dependencies:
-
-   ```bash
-   npm install
-   ```
-
-2. Copy the environment example:
-
-   ```bash
-   cp .env.example .env.local
-   ```
-
-3. Optional: add your OpenWeatherMap API key and Google OAuth Web Client ID to `.env.local`:
-
-   ```bash
-   NEXT_PUBLIC_OPENWEATHER_API_KEY=your_openweathermap_api_key
-   NEXT_PUBLIC_GOOGLE_CLIENT_ID=your_google_web_client_id
-   ```
-
-   This value is optional. Without it, the app still shows a Google-style demo sign-in button that grants demo access immediately. For real Google OAuth verification, create an OAuth 2.0 Web Client ID in Google Cloud Console and add your local/deployed URL to **Authorized JavaScript origins**.
-
-4. Start the development server:
-
-   ```bash
-   npm run dev
-   ```
-
-5. Open [http://localhost:3000](http://localhost:3000) and sign in with the Google demo button or the demo credentials above.
-
-## Environment Variables
-
-| Variable | Required | Description |
-| --- | --- | --- |
-| `NEXT_PUBLIC_OPENWEATHER_API_KEY` | No | Optional OpenWeatherMap API key used by the client-side weather service. If omitted, the app returns realistic mock weather so reviewers can run the project immediately. |
-| `NEXT_PUBLIC_GOOGLE_CLIENT_ID` | No | Optional Google OAuth 2.0 Web Client ID used by Google Identity Services on the login page. If omitted, the login page shows a Google-style demo sign-in button that lets reviewers enter without extra setup. |
-
-The API keys are intentionally loaded from environment variables and are not committed to source control. Because these are client-side demo integrations, `NEXT_PUBLIC_` values are visible in the browser bundle. A production app should verify Google ID tokens and proxy weather requests through a backend or serverless route to avoid trusting client-only authentication or exposing provider keys unnecessarily.
-
 ## Architecture Decisions
 
 - **Next.js App Router:** Chosen for professional project structure, file-based routing, and straightforward Vercel deployment.
 - **TypeScript:** Used to make data models, component props, and weather API responses easier to reason about during review.
-- **Frontend-only auth:** The assignment does not require a backend, so authentication is deliberately scoped to a local demo flag in `localStorage`. If `NEXT_PUBLIC_GOOGLE_CLIENT_ID` is configured, Google Identity Services can provide a verified Google account token to the browser; otherwise, the Google-style button signs in with a demo Google profile so reviewers do not need setup. A production app should verify the ID token server-side and create a secure session.
-- **Mock property data:** Local TypeScript data keeps the app deterministic, easy to demo, and tailored to a Costa Rica rental portfolio within a five-hour time limit.
-- **Client-side weather integration:** Weather is fetched from a reusable service using property coordinates. When no API key exists, the service returns mock data after a small delay so loading states remain visible.
+- **Frontend-only auth:** The assignment does not require a backend, so authentication is deliberately scoped to a local demo flag in `localStorage`.
+- **Client-side weather integration:** Weather is fetched from a reusable service using property coordinates. 
 - **Plain CSS:** Avoids extra UI dependencies while still providing a polished responsive admin experience.
 
 ## Features Descoped or Simplified Due to the 5-Hour Time Limit
@@ -95,21 +53,3 @@ The API keys are intentionally loaded from environment variables and are not com
 - Role-based permissions.
 - Image uploads and asset management.
 
-## Suggested Future Improvements
-
-- Replace demo auth with backend authentication, server-side Google ID token verification, secure sessions, and password handling.
-- Persist properties in a database such as Postgres or Supabase.
-- Add CRUD screens for property management.
-- Add role-based access control for admin vs. support users.
-- Move weather calls to a serverless API route and add caching/revalidation.
-- Add unit tests for validation, route protection, and weather mapping.
-- Add end-to-end tests for login, logout, and property navigation.
-- Add image upload support and optimized image handling.
-- Add CI/CD checks for linting, type checking, tests, and preview deployments.
-
-## Deployment Notes for Vercel
-
-1. Push the repository to GitHub.
-2. Import the project into Vercel.
-3. Add `NEXT_PUBLIC_OPENWEATHER_API_KEY` in Vercel Project Settings if live weather is desired, and add `NEXT_PUBLIC_GOOGLE_CLIENT_ID` if Google sign-in should be enabled.
-4. Deploy. If no key is configured, the deployed app still works with mock weather.
